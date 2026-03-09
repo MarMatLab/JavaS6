@@ -1,6 +1,7 @@
 package vod.service.impl;
 
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import vod.repository.ShopDao;
 import vod.repository.DesignerDao;
 import vod.repository.FigureDao;
@@ -12,7 +13,7 @@ import vod.service.FigureService;
 import java.util.List;
 import java.util.logging.Logger;
 
-@Component
+@Service
 public class FigureServiceBean implements FigureService {
 
     private static final Logger log = Logger.getLogger(FigureService.class.getName());

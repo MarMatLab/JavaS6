@@ -1,0 +1,24 @@
+### GET all shops
+GET http://localhost:8080/webapi/shops
+
+### get all shops with params
+GET http://localhost:8080/webapi/shops?phrase=abc
+custom-header: custom-value
+Cookie some-cookie=some-value
+
+### get shop by id
+GET http://localhost:8080/webapi/shops/1
+Accept: application/json
+
+### get shops with figure
+GET http://localhost:8080/webapi/figures/1/shops
+Accept: application/json
+
+### create new shop
+POST http://localhost:8080/webapi/shops
+Content-Type: application/json
+
+{
+  "name": "Sklep Janek",
+  "logo": "https://www.kinoteka.pl/img/logo.png"
+}

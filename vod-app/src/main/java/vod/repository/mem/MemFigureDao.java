@@ -1,6 +1,7 @@
 package vod.repository.mem;
 
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import vod.repository.FigureDao;
 import vod.model.Shop;
 import vod.model.Designer;
@@ -9,7 +10,7 @@ import vod.model.Figure;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
+@Repository("figureDao")
 public class MemFigureDao implements FigureDao {
     @Override
     public List<Figure> findAll() {

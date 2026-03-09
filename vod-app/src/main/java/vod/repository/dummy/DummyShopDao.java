@@ -27,4 +27,9 @@ public class DummyShopDao implements ShopDao
     public List<Shop> findByFigure(Figure m) {
         return List.of();
     }
+
+    @Override
+    public Shop save(Shop shop) {
+        return null;
+    }
 }

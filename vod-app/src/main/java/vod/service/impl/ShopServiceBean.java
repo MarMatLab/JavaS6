@@ -1,6 +1,7 @@
 package vod.service.impl;
 
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import vod.model.Shop;
 import vod.model.Figure;
 import vod.repository.ShopDao;
@@ -10,7 +11,7 @@ import vod.service.ShopService;
 import java.util.List;
 import java.util.logging.Logger;
 
-@Component
+@Service
 public class ShopServiceBean implements ShopService {
 
     private static final Logger log = Logger.getLogger(ShopService.class.getName());
@@ -46,6 +47,12 @@ public class ShopServiceBean implements ShopService {
     public List<Shop> getShopsByFigure(Figure m) {
         log.info("searching shops by figure " + m.getId());
         return shopDao.findByFigure(m);
+    }
+
+    @Override
+    public Shop addShop(Shop shop) {
+        log.info("adding shop " + shop);
+        return shopDao.save(shop);
     }
 
 }

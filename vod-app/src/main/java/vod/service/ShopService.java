@@ -15,4 +15,5 @@ public interface ShopService {
 
     List<Figure> getFiguresInShop(Shop c);
 
+    Shop addShop(Shop shop);
 }

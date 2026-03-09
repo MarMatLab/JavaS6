@@ -13,4 +13,5 @@ public interface ShopDao {
 
     List<Shop> findByFigure(Figure m);
 
+    Shop save(Shop shop);
 }
