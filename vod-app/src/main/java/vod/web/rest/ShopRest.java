@@ -1,16 +1,22 @@
 package vod.web.rest;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.LocaleResolver;
 import vod.model.Figure;
 import vod.model.Shop;
 import vod.service.FigureService;
 import vod.service.ShopService;
 
 import java.util.List;
+import java.util.Locale;
 
 @RestController
 @RequiredArgsConstructor
@@ -20,6 +26,8 @@ public class ShopRest {
 
     private final ShopService shopService;
     private final FigureService figureService;
+    private final MessageSource messageSource;
+    private final LocaleResolver localeResolver;
 
     @GetMapping("/shops")
     List<Shop> getShops(@RequestParam(value = "phrase", required = false) String phrase,
@@ -64,8 +72,17 @@ public class ShopRest {
     }
 
     @PostMapping("/shops")
-    ResponseEntity<Shop> addShop(@RequestBody Shop shop) {
+    ResponseEntity<?> addShop(@Validated @RequestBody Shop shop, Errors errors, HttpServletRequest request) {
         log.info("we adding a new shop {}", shop);
+
+        if (errors.hasErrors()) {
+            Locale locale = localeResolver.resolveLocale(request);
+            String errorMessage = errors.getAllErrors().stream()
+                    .map(oe->messageSource.getMessage(oe.getCode(), new Object[0], locale))
+                    .reduce("errors:\n", (accu, oe)->accu + oe + "\n");
+            return ResponseEntity.badRequest().body(errorMessage);
+        }
+
         shop = shopService.addShop(shop);
         log.info("shop added: {}", shop);
         return ResponseEntity.status(HttpStatus.CREATED).body(shop);

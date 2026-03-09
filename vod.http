@@ -17,8 +17,9 @@ Accept: application/json
 ### create new shop
 POST http://localhost:8080/webapi/shops
 Content-Type: application/json
+Accept-Language: en
 
 {
-  "name": "Sklep Janek",
+  "name": "S",
   "logo": "https://www.kinoteka.pl/img/logo.png"
 }
