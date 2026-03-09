@@ -20,6 +20,26 @@ Content-Type: application/json
 Accept-Language: en
 
 {
-  "name": "S",
+  "name": "Sklep Janek2",
   "logo": "https://www.kinoteka.pl/img/logo.png"
+}
+
+###get all figures
+GET http://localhost:8080/webapi/figures
+
+###get figure by id
+GET http://localhost:8080/webapi/figures/1
+
+###get figures at stock in shop
+GET http://localhost:8080/webapi/shops/1/figures
+
+###create new figure
+POST http://localhost:8080/webapi/figures
+Content-Type: application/json
+
+{
+  "name": "IO",
+  "material": "drewno!",
+  "price": 2.50,
+  "designerId": 4
 }
