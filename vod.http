@@ -2,9 +2,9 @@
 GET http://localhost:8080/webapi/shops
 
 ### get all shops with params
-GET http://localhost:8080/webapi/shops?phrase=abc
+GET http://localhost:8080/webapi/shops?phrase=foo
 custom-header: custom-value
-Cookie some-cookie=some-value
+Cookie: some-cookie=some-value
 
 ### get shop by id
 GET http://localhost:8080/webapi/shops/1
@@ -17,7 +17,7 @@ Accept: application/json
 ### create new shop
 POST http://localhost:8080/webapi/shops
 Content-Type: application/json
-Accept-Language: en
+Accept-Language: jp
 
 {
   "name": "Sklep Janek2",
@@ -41,5 +41,5 @@ Content-Type: application/json
   "name": "IO",
   "material": "drewno!",
   "price": 2.50,
-  "designerId": 4
+  "designerId": 22
 }

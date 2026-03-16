@@ -5,6 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -26,6 +28,7 @@ public class FigureRest {
     private final ShopService shopService;
     private final MessageSource messageSource;
     private final LocaleResolver localeResolver;
+    private final FigureValidator figureValidator;
 
     @GetMapping("/figures")
     List<Figure> getFigures()
@@ -74,9 +77,15 @@ public class FigureRest {
     }
 
     @PostMapping("/figures")
-    ResponseEntity<?> addFigure(@RequestBody FigureDTO figureDTO)
+    ResponseEntity<?> addFigure(@Validated @RequestBody FigureDTO figureDTO, Errors errors)
     {
         log.info("'bout to add ze figure {}", figureDTO);
+
+        if (errors.hasErrors())
+        {
+            return ResponseEntity.badRequest().build();
+        }
+
         Figure figure = new Figure();
         figure.setName(figureDTO.getName());
         figure.setMaterial(figureDTO.getMaterial());

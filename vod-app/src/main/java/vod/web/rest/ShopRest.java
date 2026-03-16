@@ -39,9 +39,18 @@ public class ShopRest {
 
     @GetMapping("/shops")
     List<Shop> getShops(@RequestParam(value = "phrase", required = false) String phrase,
-                        @RequestHeader(value = "custom-header", required = false) String customHeader)
+                        @RequestHeader(value = "custom-header", required = false) String customHeader,
+                        @CookieValue(value = "some-cookie", required = false) String someCookie)
     {
         log.info("we getting shopzzz now");
+        log.info("phrase param: {}", phrase);
+        log.info("custom-header param: {}", customHeader);
+        log.info("some cookie vaaaaaalue: {}", someCookie);
+
+        if (phrase != null && phrase.equals("foo"))
+        {
+            throw new IllegalArgumentException("Foo!");
+        }
         List<Shop> shops = shopService.getAllShops();
         log.info("{} shopz found", shops.size());
 
