@@ -40,6 +40,6 @@ Content-Type: application/json
 {
   "name": "IO",
   "material": "drewno!",
-  "price": 2.50,
-  "designerId": 22
+  "price": 2.50
+
 }

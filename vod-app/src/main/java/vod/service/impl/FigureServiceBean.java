@@ -1,6 +1,6 @@
 package vod.service.impl;
 
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import vod.repository.ShopDao;
 import vod.repository.DesignerDao;
@@ -19,12 +19,12 @@ public class FigureServiceBean implements FigureService {
     private static final Logger log = Logger.getLogger(FigureService.class.getName());
 
     private DesignerDao directorDao;
-    private ShopDao cinemaDao;
+    private ShopDao shopDao;
     private FigureDao movieDao;
 
-    public FigureServiceBean(DesignerDao directorDao, ShopDao cinemaDao, FigureDao movieDao) {
+    public FigureServiceBean(DesignerDao directorDao, @Qualifier("jpaShopDao") ShopDao shopDao, FigureDao movieDao) {
         this.directorDao = directorDao;
-        this.cinemaDao = cinemaDao;
+        this.shopDao = shopDao;
         this.movieDao = movieDao;
     }
 
@@ -34,7 +34,7 @@ public class FigureServiceBean implements FigureService {
     }
 
     public List<Figure> getFiguresByDesigner(Designer d) {
-        log.info("serching movies by diretor " + d.getId());
+        log.info("serching movies by diretor " + d.getDesignerId());
         return movieDao.findByDesigner(d);
     }
 
@@ -50,17 +50,17 @@ public class FigureServiceBean implements FigureService {
 
     public List<Shop> getAllCinemas() {
         log.info("searching all cinemas");
-        return cinemaDao.findAll();
+        return shopDao.findAll();
     }
 
     public List<Shop> getCinemasByMovie(Figure m) {
         log.info("searching cinemas by movie " + m.getId());
-        return cinemaDao.findByFigure(m);
+        return shopDao.findByFigure(m);
     }
 
     public Shop getCinemaById(int id) {
         log.info("searching cinema by id " + id);
-        return cinemaDao.findById(id);
+        return shopDao.findById(id);
     }
 
     public List<Designer> getAllDesigners() {

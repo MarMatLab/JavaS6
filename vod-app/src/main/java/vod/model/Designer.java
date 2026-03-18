@@ -1,19 +1,31 @@
 package vod.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Designer {
 
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private int designerId;
+
+    @Column(name="firstname")
     private String firstName;
+
+    @Column(name = "lastname")
     private String lastName;
+
+    @OneToMany(mappedBy = "designer")
     @JsonIgnore
     private List<Figure> figures = new ArrayList<>();
-    public Designer(int id, String firstName, String lastName) {
-        this.id = id;
+
+    public Designer(int designerId, String firstName, String lastName) {
+        this.designerId = designerId;
         this.firstName = firstName;
         this.lastName = lastName;
     }
@@ -21,12 +33,16 @@ public class Designer {
     public Designer() {
     }
 
-    public int getId() {
-        return id;
+    public int getDesignerId() {
+        return designerId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public int getId() {
+        return this.designerId;
+    }
+
+    public void setDesignerId(int designerId) {
+        this.designerId = designerId;
     }
 
     public String getFirstName() {
@@ -60,7 +76,7 @@ public class Designer {
     @Override
     public String toString() {
         return "Designer{" +
-                "id=" + id +
+                "id=" + designerId +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 '}';

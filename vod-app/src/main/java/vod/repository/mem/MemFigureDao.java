@@ -10,7 +10,7 @@ import vod.model.Figure;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Repository("figureDao")
+//@Repository("figureDao")
 public class MemFigureDao implements FigureDao {
     @Override
     public List<Figure> findAll() {

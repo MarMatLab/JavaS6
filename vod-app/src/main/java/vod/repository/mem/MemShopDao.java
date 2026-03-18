@@ -10,8 +10,8 @@ import vod.model.Figure;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Repository("shopDao")
-@Primary
+//@Repository("shopDao")
+//@Primary
 public class MemShopDao implements ShopDao {
 
     @Override

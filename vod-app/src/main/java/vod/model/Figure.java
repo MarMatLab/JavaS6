@@ -1,15 +1,30 @@
 package vod.model;
 
+import jakarta.persistence.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Figure {
 
+    @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     private String material;
+
+    @ManyToOne
+    @JoinColumn(name = "designer_id")
     private Designer designer;
     private float price;
+
+    @ManyToMany
+    @JoinTable(
+            name="figure_shop",
+            joinColumns = @JoinColumn(name="figure_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "shop_id", referencedColumnName = "id")
+    )
+
     private List<Shop> shops = new ArrayList<>();
 
 
