@@ -38,8 +38,8 @@ POST http://localhost:8080/webapi/figures
 Content-Type: application/json
 
 {
-  "name": "IO",
+  "name": "Apocalypse Now",
   "material": "drewno!",
-  "price": 2.50
-
+  "price": 2.50,
+  "designerId": 3
 }

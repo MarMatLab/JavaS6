@@ -12,7 +12,7 @@ import vod.repository.FigureDao;
 import java.util.List;
 
 @Repository
-@Primary
+//@Primary
 public class JpaFigureDao implements FigureDao {
 
     @PersistenceContext

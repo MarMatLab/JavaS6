@@ -6,7 +6,7 @@ import vod.model.Designer;
 
 import java.util.List;
 
-@Repository("designerDao")
+//@Repository("designerDao")
 public class MemDesignerDao implements DesignerDao {
     @Override
     public List<Designer> findAll() {

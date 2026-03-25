@@ -1,7 +1,14 @@
 package vod.service.impl;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 import vod.repository.ShopDao;
 import vod.repository.DesignerDao;
 import vod.repository.FigureDao;
@@ -14,38 +21,35 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @Service
+@RequiredArgsConstructor
 public class FigureServiceBean implements FigureService {
 
     private static final Logger log = Logger.getLogger(FigureService.class.getName());
+    //private final DataSourceTransactionManager transactionManager;
 
-    private DesignerDao directorDao;
-    private ShopDao shopDao;
-    private FigureDao movieDao;
-
-    public FigureServiceBean(DesignerDao directorDao, @Qualifier("jpaShopDao") ShopDao shopDao, FigureDao movieDao) {
-        this.directorDao = directorDao;
-        this.shopDao = shopDao;
-        this.movieDao = movieDao;
-    }
+    private final DesignerDao directorDao;
+    private final ShopDao shopDao;
+    private final FigureDao figureDao;
+    private final PlatformTransactionManager transactionManager;
 
     public List<Figure> getAllFigures() {
         log.info("searching all movies...");
-        return movieDao.findAll();
+        return figureDao.findAll();
     }
 
     public List<Figure> getFiguresByDesigner(Designer d) {
         log.info("serching movies by diretor " + d.getDesignerId());
-        return movieDao.findByDesigner(d);
+        return figureDao.findByDesigner(d);
     }
 
     public List<Figure> getMoviesInCinema(Shop c) {
         log.info("searching movies played in cinema " + c.getId());
-        return movieDao.findByShop(c);
+        return figureDao.findByShop(c);
     }
 
     public Figure getFigureById(int id) {
         log.info("searching movie by id " + id);
-        return movieDao.findById(id);
+        return figureDao.findById(id);
     }
 
     public List<Shop> getAllCinemas() {
@@ -73,10 +77,17 @@ public class FigureServiceBean implements FigureService {
         return directorDao.findById(id);
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public Figure addFigure(Figure m) {
-        log.info("about to add movie " + m);
-        return movieDao.add(m);
+        log.info("about to add fiiigjure " + m);
+        m = figureDao.add(m);
+
+        if (m.getName().equals("Apocalypse Now"))
+        {
+            throw new RuntimeException("not yet!");
+        }
+        return m;
     }
 
     @Override
