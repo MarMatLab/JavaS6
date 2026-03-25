@@ -1,5 +1,6 @@
 package vod.service.impl;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import vod.model.Shop;
@@ -49,6 +50,7 @@ public class ShopServiceBean implements ShopService {
         return shopDao.findByFigure(m);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @Override
     public Shop addShop(Shop shop) {
         log.info("adding shop " + shop);

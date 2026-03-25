@@ -17,13 +17,12 @@ Accept: application/json
 ### create new shop
 POST http://localhost:8080/webapi/shops
 Content-Type: application/json
-Accept-Language: jp
+Authorization: Basic dbuser1 dbuser1
 
 {
   "name": "Sklep Janek2",
   "logo": "https://www.kinoteka.pl/img/logo.png"
 }
-
 ###get all figures
 GET http://localhost:8080/webapi/figures
 
