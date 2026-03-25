@@ -38,8 +38,11 @@ POST http://localhost:8080/webapi/figures
 Content-Type: application/json
 
 {
-  "name": "Apocalypse Now",
+  "name": "IO",
   "material": "drewno!",
   "price": 2.50,
-  "designerId": 3
+  "designerId": 4
 }
+
+### shutdown service
+POST http://localhost:8080/actuator/shutdown
